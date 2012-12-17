@@ -19,6 +19,11 @@ L1Tracker::~L1Tracker(void)
 {
 }
 
+void  L1Tracker::Next(Mat &frame)
+{
+
+}
+
 Mat L1Tracker::getROI(Mat &srcImg,RotatedRect &ROI)
 {
 	// matrices we'll use
