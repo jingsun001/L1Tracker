@@ -21,7 +21,7 @@ L1Tracker::~L1Tracker(void)
 
 void  L1Tracker::Next(Mat &frame)
 {
-
+	//计算
 }
 
 Mat L1Tracker::getROI(Mat &srcImg,RotatedRect &ROI)
@@ -83,37 +83,37 @@ void L1Tracker::initTrivialTemplate()
 
 }
 
-//生成种子后，检索窗为以种子为左上点的360度旋窗
+//生成种子后，检索窗为以种子为中点的360度旋窗
 void L1Tracker::initSeed(int seedNums,Rect &ROI)
 {
-	int totalPix=cFrame.cols*cFrame.rows;
+	int totalPix=(cFrame.cols-templateSize.width/2)*(cFrame.rows-templateSize.height/2);
 	seedNum=seedNums>totalPix?totalPix:seedNums;
 	//RNG rng1((unsigned)time(0)),rng2((unsigned)time(1));	//利用RNG生成高斯分布N（0,1）的随机数
 	//rng1.gaussian(cFrame.rows/2);
 	//rng2.gaussian(cFrame.cols/2);
 	srand((unsigned)time(0));
-	Point *p;
+	Partical *p;
 	int rpos,cpos;
 	set<string> tmp;
 	string rcpos;
 	stringstream ss;
 	while (seeds.size()<seedNums)
 	{
-		rpos=rand()%(cFrame.rows-1)+1;
-		cpos=rand()%(cFrame.cols-1)+1;
+		rpos=rand()%(cFrame.rows-templateSize.height-1)+templateSize.height/2+1;
+		cpos=rand()%(cFrame.cols-templateSize.width-1)+templateSize.width/2+1;
 		ss.clear();
 		ss<<rpos<<','<<cpos;
 		ss>>rcpos;
 		if (tmp.find(rcpos)==tmp.end())
 		{
-			p=new Point(rpos,cpos);
+			p=new Partical();
+			p->roi=new RotatedRect(Point(rpos,cpos),Size(templateSize.width,templateSize.height),0);
+			p->scale=1.;
+			p->q=0;
 			seeds.push_back(*p);
 			tmp.insert(rcpos);
+			cFrame.at<uchar>(rpos,cpos)=255;
 		}
 	}
-}
-
-void L1Tracker::CreateMatrixB()
-{
-
+	imshow("",cFrame);
 }
