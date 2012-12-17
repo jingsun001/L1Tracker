@@ -1,0 +1,10 @@
+Debug
+Release
+L1Tracker/Debug/*
+L1Tracker/Release/*
+L1Tracker.sdf
+L1Tracker.v11.suo
+L1tracker/ReadMe.txt
+$tf
+ipch
+L1Tracker.opensdf
