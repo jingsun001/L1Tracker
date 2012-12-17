@@ -24,7 +24,7 @@ using namespace cv;
 // TODO: 在此处引用程序需要的其他头文件
 #ifdef _DEBUG
 //Debug Mode
-
+  
 #pragma comment(lib,"opencv_core243d.lib")
 #pragma comment(lib,"opencv_imgproc243d.lib")
 #pragma comment(lib,"opencv_highgui243d.lib")
